@@ -1,7 +1,7 @@
 package com.example.Atlas.controller;
 
 import com.example.Atlas.model.Users;
-import com.example.Atlas.repository.UserRepository;
+import com.example.Atlas.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,44 +10,45 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/atlas/users")
+@CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @PostMapping
     public ResponseEntity<Users> createUser(@RequestBody Users users) {
-        Users savedUsers = userRepository.save(users);
+        Users savedUsers = userService.createUser(users);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUsers);
     }
 
     @GetMapping
     public List<Users> GetAllUsers() {
-        return userRepository.findAll();
+        return userService.findAllUsers();
     }
 
     @GetMapping("/{id}")
-    public Optional<Users> getUsersById(@PathVariable Long id) {
-        return userRepository.findById(id);
+    public Optional<Users> getUserById(@PathVariable long id) {
+        return userService.findUserById(id);
     }
 
     @DeleteMapping("/{id}")
-    public void DeleteUserById(@PathVariable Long id) {
-        userRepository.deleteById(id);
-    }
-
-    @PutMapping("/{id}")
-    public Users updateUserById(@PathVariable Long id, Users Users) {
-        return userRepository.save(Users);
+    public void DeleteUserById(@PathVariable long id) {
+        userService.deleteUser(id);
     }
 
     @DeleteMapping
-    public void deleteAllUsers() {
-        userRepository.deleteAll();
+    public void DeleteAllUsers() {
+        userService.DeleteAllUsers();
     }
 
+    @PutMapping("/{id}")
+    public Users updateUserById(@PathVariable long id, @RequestBody Users users) {
+        users.setId(id);
+        return userService.updateUser(id, users);
+    }
 
 }
