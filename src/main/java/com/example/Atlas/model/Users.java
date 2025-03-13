@@ -1,6 +1,7 @@
 package com.example.Atlas.model;
 
 
+import com.example.Atlas.model.roles.UserRoles;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
@@ -9,18 +10,22 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
+@Inheritance(strategy = InheritanceType.JOINED) //definindo estratégia de herança no banco de dados
 @Entity(name = "users")
 @Table(name = "users")
 @EqualsAndHashCode(of = "id")
-public class Users {
+public abstract class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty("id")
     private long id;
 
-    @JsonProperty("name")
-    private String name;
+    @JsonProperty("login")
+    private String login;
+
+    @JsonProperty("password")
+    private String password;
 
     @JsonProperty("role")
     @Enumerated(EnumType.STRING)
@@ -34,7 +39,8 @@ public class Users {
     public String toString() {
         return "Users{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
                 ", role=" + role +
                 '}';
     }

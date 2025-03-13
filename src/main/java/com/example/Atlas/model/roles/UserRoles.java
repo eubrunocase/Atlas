@@ -1,4 +1,4 @@
-package com.example.Atlas.model;
+package com.example.Atlas.model.roles;
 
 public enum UserRoles {
 

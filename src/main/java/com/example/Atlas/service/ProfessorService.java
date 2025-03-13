@@ -1,13 +1,13 @@
 package com.example.Atlas.service;
 
-import com.example.Atlas.model.Users;
+import com.example.Atlas.model.Professor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService extends BaseService<Users> {
+public class ProfessorService extends BaseService<Professor> {
 
-    public UserService(JpaRepository<Users, Long> repository) {
+    public ProfessorService(JpaRepository<Professor, Long> repository) {
         super(repository);
     }
 }
