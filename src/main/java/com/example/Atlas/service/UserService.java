@@ -2,6 +2,7 @@ package com.example.Atlas.service;
 
 import com.example.Atlas.model.Users;
 import com.example.Atlas.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -15,7 +16,9 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    @Transactional
     public Users createUser(Users user) {
+        System.out.println("usuario recebido ao salvar" + user);
         return userRepository.save(user);
     }
 

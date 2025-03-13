@@ -20,6 +20,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<Users> createUser(@RequestBody Users users) {
+        System.out.println("recebido no controller" + users);
         Users savedUsers = userService.createUser(users);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUsers);
     }
