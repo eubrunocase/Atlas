@@ -4,6 +4,8 @@ import com.example.Atlas.model.Professor;
 import com.example.Atlas.service.ProfessorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -32,12 +34,21 @@ public class ProfessorController {
 
     @DeleteMapping("{id}")
     public void deleteProfessor(@PathVariable Long id) {
-        professorService.delete(id);
+         professorService.delete(id);
+    }
+
+    @DeleteMapping
+    public void deleteAll () {
+        professorService.deleteAll();
     }
 
     @PutMapping("{id}")
     public Professor updateProfessor(@PathVariable Long id, @RequestBody Professor professor) {
         professor.setId(id);
         return professorService.save(professor);
+    }
+
+    public boolean isAnonymousUser() {
+        return SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken;
     }
 }

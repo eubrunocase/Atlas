@@ -31,6 +31,14 @@ public abstract class Users {
     @Enumerated(EnumType.STRING)
     private UserRoles role;
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public void setId (long id) {
         this.id = id;
     }
