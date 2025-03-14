@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/atlas/administrador")
+@RequestMapping("/atlas/adm")
 public class AdmController {
 
     private final AdmService admService;
@@ -29,12 +29,12 @@ public class AdmController {
         return admService.findAll();
     }
 
-    @DeleteMapping
-    public void delete (Long id) {
+    @DeleteMapping("{id}")
+    public void delete (@PathVariable Long id) {
         admService.delete(id);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public Administrador update (@PathVariable Long id,@RequestBody Administrador administrador) {
         administrador.setId(id);
         return admService.save(administrador);

@@ -6,6 +6,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -28,17 +29,20 @@ public class SecurityConfigurations {
                               .requestMatchers(HttpMethod.DELETE, "atlas/professor/**").permitAll()
                               .requestMatchers(HttpMethod.PUT, "atlas/professor/**").permitAll()
 
-                              .requestMatchers(HttpMethod.GET, "atlas/administrador/**").permitAll()
-                              .requestMatchers(HttpMethod.POST, "atlas/administrador/**").permitAll()
-                              .requestMatchers(HttpMethod.DELETE, "atlas/administrador/**").permitAll()
-                              .requestMatchers(HttpMethod.PUT, "atlas/administrador/**").permitAll()
+                              .requestMatchers(HttpMethod.GET, "atlas/adm/**").permitAll()
+                              .requestMatchers(HttpMethod.POST, "atlas/adm/**").permitAll()
+                              .requestMatchers(HttpMethod.DELETE, "atlas/adm/**").permitAll()
+                              .requestMatchers(HttpMethod.PUT, "atlas/adm/**").permitAll()
 
                               .requestMatchers(HttpMethod.GET, "atlas/project/**").permitAll()
                               .requestMatchers(HttpMethod.POST, "atlas/project/**").permitAll()
                               .requestMatchers(HttpMethod.DELETE, "atlas/project/**").permitAll()
                               .requestMatchers(HttpMethod.POST, "atlas/project/**").permitAll()
+
+
                               .anyRequest().authenticated())
-                      .build();
+                              .build();
           }
+
 
 }

@@ -12,7 +12,6 @@ public class AdmService extends BaseService<Administrador> {
 
     public AdmService(JpaRepository<Administrador, Long> repository, CryptPasswordService cryptPasswordService) {
         super(repository);
-
     }
 
     @Override
