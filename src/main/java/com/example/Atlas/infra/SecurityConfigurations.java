@@ -3,14 +3,15 @@ package com.example.Atlas.infra;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfigurations {
 
           @Bean
@@ -19,11 +20,6 @@ public class SecurityConfigurations {
                       .csrf(csrf -> csrf.disable())
                       .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                       .authorizeHttpRequests(authorize -> authorize
-                              .requestMatchers(HttpMethod.POST, "atlas/users/**").permitAll()
-                              .requestMatchers(HttpMethod.GET, "atlas/users/**").permitAll()
-                              .requestMatchers(HttpMethod.DELETE, "atlas/users/**").permitAll()
-                              .requestMatchers(HttpMethod.PUT, "atlas/users/**").permitAll()
-
                               .requestMatchers(HttpMethod.GET, "atlas/professor/**").permitAll()
                               .requestMatchers(HttpMethod.POST, "atlas/professor/**").permitAll()
                               .requestMatchers(HttpMethod.DELETE, "atlas/professor/**").permitAll()
@@ -37,7 +33,7 @@ public class SecurityConfigurations {
                               .requestMatchers(HttpMethod.GET, "atlas/project/**").permitAll()
                               .requestMatchers(HttpMethod.POST, "atlas/project/**").permitAll()
                               .requestMatchers(HttpMethod.DELETE, "atlas/project/**").permitAll()
-                              .requestMatchers(HttpMethod.POST, "atlas/project/**").permitAll()
+                              .requestMatchers(HttpMethod.PUT, "atlas/project/**").permitAll()
 
 
                               .anyRequest().authenticated())

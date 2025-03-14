@@ -1,7 +1,6 @@
 package com.example.Atlas.model;
 
-
-import com.example.Atlas.model.roles.UserRoles;
+import com.example.Atlas.model.enums.UserRoles;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;

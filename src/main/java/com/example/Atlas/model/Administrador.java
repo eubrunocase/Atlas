@@ -1,6 +1,5 @@
 package com.example.Atlas.model;
 
-import com.example.Atlas.model.roles.UserRoles;
 import jakarta.persistence.Entity;
 import lombok.*;
 

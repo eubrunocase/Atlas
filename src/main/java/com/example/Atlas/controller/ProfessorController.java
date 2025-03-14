@@ -4,11 +4,9 @@ import com.example.Atlas.model.Professor;
 import com.example.Atlas.service.ProfessorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-
 
 @RestController
 @RequestMapping("atlas/professor")
@@ -21,6 +19,7 @@ public class ProfessorController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<Professor> createProfessor(@RequestBody Professor professor) {
         System.out.println("recebido no controller" + professor);
         Professor savedProfessor = professorService.save(professor);
@@ -33,6 +32,7 @@ public class ProfessorController {
     }
 
     @DeleteMapping("{id}")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public void deleteProfessor(@PathVariable Long id) {
          professorService.delete(id);
     }
@@ -48,7 +48,5 @@ public class ProfessorController {
         return professorService.save(professor);
     }
 
-    public boolean isAnonymousUser() {
-        return SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken;
-    }
+
 }

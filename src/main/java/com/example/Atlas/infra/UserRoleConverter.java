@@ -1,6 +1,6 @@
 package com.example.Atlas.infra;
 
-import com.example.Atlas.model.roles.UserRoles;
+import com.example.Atlas.model.enums.UserRoles;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 
