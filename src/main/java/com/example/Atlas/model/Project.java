@@ -15,6 +15,7 @@ public class Project {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonProperty("id")
     private long id;
 
     @JsonProperty("name")
