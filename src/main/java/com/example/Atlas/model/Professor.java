@@ -3,7 +3,6 @@ package com.example.Atlas.model;
 import jakarta.persistence.Entity;
 import lombok.*;
 
-
 @Getter
 @Setter
 @Entity(name = "professor")
