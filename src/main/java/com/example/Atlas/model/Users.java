@@ -19,7 +19,7 @@ import java.util.List;
 @Entity(name = "users")
 @Table(name = "users")
 @EqualsAndHashCode(of = "id")
-public abstract class Users {
+public abstract class Users implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,6 +40,11 @@ public abstract class Users {
         this.login = login;
         this.password = password;
         this.role = role;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("ROLE_" + this.role.name()));
     }
 
     public String getLogin() {
