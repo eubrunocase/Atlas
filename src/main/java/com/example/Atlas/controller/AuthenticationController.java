@@ -10,7 +10,6 @@ import com.example.Atlas.model.Users;
 import com.example.Atlas.repository.AdmRepository;
 import com.example.Atlas.repository.ProfessorRepository;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -38,22 +37,6 @@ public class AuthenticationController {
         this.tokenService = tokenService;
     }
 
-//    @PostMapping("/login")
-//    public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid AuthenticationDTO data) {
-//        try {
-//            System.out.println("Tentativa de login para usuário: " + data.login());
-//            var userNamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
-//            var auth = this.authenticationManager.authenticate(userNamePassword);
-//            System.out.println("Autenticação bem-sucedida para: " + data.login());
-//            var token = tokenService.generateToken((Users) auth.getPrincipal());
-//            return ResponseEntity.ok(new LoginResponseDTO(token));
-//        } catch (Exception e) {
-//            System.err.println("Erro detalhado ao autenticar: " + e.getClass().getName() + " - " + e.getMessage());
-//            e.printStackTrace();
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-//        }
-//    }
-
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> login (@RequestBody AuthenticationDTO data) {
         try {
@@ -67,7 +50,6 @@ public class AuthenticationController {
             e.printStackTrace();
             return ResponseEntity.badRequest().build();
         }
-
     }
 
     @PostMapping("/register/professor")
@@ -99,8 +81,5 @@ public class AuthenticationController {
         this.admRepository.save(newAdm);
         return ResponseEntity.ok().build();
     }
-
-
-
 
 }
