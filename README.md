@@ -243,7 +243,7 @@ O projeto segue uma arquitetura MVC (Model-View-Controller) com comunicação en
 2. Configure o banco de dados PostgreSQL
 3. Configure as seguintes propriedades no arquivo `application.properties` ou `application.yml`:
    ```
-   spring.datasource.url=jdbc:postgresql://localhost:5432/atlas
+   spring.datasource.url=jdbc:postgresql://localhost:5432/nome-do-banco
    spring.datasource.username=your_username
    spring.datasource.password=your_password
    spring.jpa.hibernate.ddl-auto=update
