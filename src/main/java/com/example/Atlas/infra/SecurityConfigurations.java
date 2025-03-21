@@ -2,7 +2,6 @@ package com.example.Atlas.infra;
 
 import com.example.Atlas.repository.AdmRepository;
 import com.example.Atlas.repository.ProfessorRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -24,8 +23,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfigurations {
 
-    @Autowired
-    private securityFilter securityFilter;
+    private final securityFilter securityFilter;
+
+    public SecurityConfigurations (securityFilter securityFilter) {
+        this.securityFilter = securityFilter;
+    }
 
           @Bean
           public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -36,13 +38,13 @@ public class SecurityConfigurations {
 
                               .requestMatchers(HttpMethod.POST, "/atlas/auth/login").permitAll()
                               .requestMatchers(HttpMethod.POST, "/atlas/auth/register/professor").permitAll()
-                              .requestMatchers(HttpMethod.POST, "/atlas/auth/register/adm").hasRole("ADMINISTRADOR")
+                              .requestMatchers(HttpMethod.POST, "/atlas/auth/register/adm").permitAll()
 
 
                               .requestMatchers(HttpMethod.GET, "/atlas/professor/**").permitAll()
                               .requestMatchers(HttpMethod.POST, "/atlas/professor/**").hasRole("ADMINISTRADOR")
                               .requestMatchers(HttpMethod.DELETE, "/atlas/professor/**").hasRole("ADMINISTRADOR")
-                              .requestMatchers(HttpMethod.PUT, "/atlas/professor/**").permitAll()
+                              .requestMatchers(HttpMethod.PUT, "/atlas/professor/**").hasRole("ADMINISTRADOR")
 
                               .requestMatchers(HttpMethod.GET, "/atlas/adm/**").hasRole("ADMINISTRADOR")
                               .requestMatchers(HttpMethod.POST, "/atlas/adm/**").hasRole("ADMINISTRADOR")
@@ -75,14 +77,12 @@ public class SecurityConfigurations {
         return new UserDetailsService() {
             @Override
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-                // Primeiro busca no repositório de administradores
                 UserDetails adminUser = admRepository.findByLogin(username);
                 if (adminUser != null) {
                     System.out.println("Usuário administrador encontrado: " + username);
                     return adminUser;
                 }
 
-                // Se não encontrar, busca no repositório de professores
                 UserDetails professorUser = professorRepository.findByLogin(username);
                 if (professorUser != null) {
                     System.out.println("Usuário professor encontrado: " + username);

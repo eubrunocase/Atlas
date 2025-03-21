@@ -38,15 +38,13 @@ public class securityFilter extends OncePerRequestFilter {
 
                 if (!"Invalid token".equals(login)) {
                     System.out.println("Token válido para usuário: " + login);
-                    // Tenta encontrar o usuário como administrador
+
                     UserDetails user = admRepository.findByLogin(login);
 
-                    // Se não for administrador, tenta como professor
                     if (user == null) {
                         user = professorRepository.findByLogin(login);
                     }
 
-                    // Se encontrou o usuário, configura a autenticação
                     if (user != null) {
                         System.out.println("Configurando autenticação para: " + login + " com roles: " + user.getAuthorities());
                         var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
