@@ -9,6 +9,8 @@ import com.example.Atlas.model.Professor;
 import com.example.Atlas.model.Users;
 import com.example.Atlas.repository.AdmRepository;
 import com.example.Atlas.repository.ProfessorRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/atlas/auth")
+@Tag(name = "Autenticação", description = "Gerencia a autenticação de usuários")
 public class AuthenticationController {
 
     private final AuthenticationManager authenticationManager;
@@ -38,6 +41,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
+    @Operation(summary = "Login", description = "Realiza o login de usuário")
     public ResponseEntity<LoginResponseDTO> login (@RequestBody AuthenticationDTO data) {
         try {
             System.out.println("recebendo tentativa de login para  " + data.login());
@@ -53,6 +57,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register/professor")
+    @Operation(summary = "Registrar novo professor", description = "Registra um novo professor")
     public ResponseEntity registerProfessor (@RequestBody @Valid RegisterDTO data) {
         System.out.println("recebendo no controller de autenticação " + data.login());
          if(this.professorRepository.findByLogin(data.login()) != null){
@@ -68,6 +73,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register/adm")
+    @Operation(summary = "Registrar novo adm", description = "Registra um novo adm")
     public ResponseEntity registerAdm (@RequestBody @Valid RegisterDTO data) {
         System.out.println("recebendo no controller de autenticação " + data.login());
         if(this.admRepository.findByLogin(data.login()) != null) {

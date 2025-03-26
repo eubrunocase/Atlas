@@ -2,6 +2,8 @@ package com.example.Atlas.controller;
 
 import com.example.Atlas.model.Project;
 import com.example.Atlas.service.ProjectService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/atlas/project")
+@Tag(name = "Projetos", description = "Endpoints para gerenciar projetos")
 public class ProjectController {
 
     private final ProjectService projectService;
@@ -19,6 +22,7 @@ public class ProjectController {
     }
 
     @PostMapping
+    @Operation(summary = "Criar um novo projeto", description = "Cria um novo projeto")
     public ResponseEntity<Project> createProject(@RequestBody Project project) {
         System.out.println("recebendo projeto no controller" + project);
         Project savedProject = projectService.save(project);
@@ -26,16 +30,19 @@ public class ProjectController {
     }
 
     @GetMapping
+    @Operation(summary = "Listar projetos", description = "Retorna uma lista com todos os projetos")
     public List<Project> getAll () {
         return projectService.findAll();
     }
 
     @DeleteMapping("{id}")
+    @Operation(summary = "Remover projeto", description = "Exclui um projeto pelo id")
     public void deleteProject (@PathVariable Long id) {
         projectService.delete(id);
     }
 
     @PutMapping("{id}")
+    @Operation(summary = "Atualiza um projeto", description = "Atualiza as informações de um projeto pelo id")
     public Project update (@PathVariable Long id, @RequestBody Project project) {
         return projectService.update(id, project);
     }

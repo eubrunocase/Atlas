@@ -36,6 +36,10 @@ public class SecurityConfigurations {
                       .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                       .authorizeHttpRequests(authorize -> authorize
 
+                                      .requestMatchers( "/swagger-ui/**",
+                                              "/v3/api-docs/**",
+                                              "/swagger-ui.html").permitAll()
+
                               .requestMatchers(HttpMethod.POST, "/atlas/auth/login").permitAll()
                               .requestMatchers(HttpMethod.POST, "/atlas/auth/register/professor").permitAll()
                               .requestMatchers(HttpMethod.POST, "/atlas/auth/register/adm").permitAll()
