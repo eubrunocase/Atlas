@@ -37,6 +37,14 @@ public class Project {
     @Enumerated(EnumType.STRING)
     private ProjectStatus status;
 
+    public ProjectStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ProjectStatus status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Project{" +

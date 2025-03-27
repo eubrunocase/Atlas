@@ -58,7 +58,7 @@ public class AuthenticationController {
 
     @PostMapping("/register/professor")
     @Operation(summary = "Registrar novo professor", description = "Registra um novo professor")
-    public ResponseEntity registerProfessor (@RequestBody @Valid RegisterDTO data) {
+    public ResponseEntity<Professor> registerProfessor (@RequestBody @Valid RegisterDTO data) {
         System.out.println("recebendo no controller de autenticação " + data.login());
          if(this.professorRepository.findByLogin(data.login()) != null){
          System.out.println("Erro ao registrar professor: " + data.login() + "" +  " já cadastrado!");
@@ -74,7 +74,7 @@ public class AuthenticationController {
 
     @PostMapping("/register/adm")
     @Operation(summary = "Registrar novo adm", description = "Registra um novo adm")
-    public ResponseEntity registerAdm (@RequestBody @Valid RegisterDTO data) {
+    public ResponseEntity<Administrador> registerAdm (@RequestBody @Valid RegisterDTO data) {
         System.out.println("recebendo no controller de autenticação " + data.login());
         if(this.admRepository.findByLogin(data.login()) != null) {
             System.out.println("Erro ao registrar adm: " + data.login() + "" +" já cadastrado!");

@@ -25,7 +25,7 @@ public class ProjectController {
     @Operation(summary = "Criar um novo projeto", description = "Cria um novo projeto")
     public ResponseEntity<Project> createProject(@RequestBody Project project) {
         System.out.println("recebendo projeto no controller" + project);
-        Project savedProject = projectService.save(project);
+        Project savedProject = projectService.createProject(project);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedProject);
     }
 

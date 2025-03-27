@@ -36,6 +36,10 @@ public abstract class Users implements UserDetails {
     @Enumerated(EnumType.STRING)
     private UserRoles role;
 
+    @JsonProperty("escola")
+    private String escola;
+
+
     public Users (String login, String password, UserRoles role) {
         this.login = login;
         this.password = password;
