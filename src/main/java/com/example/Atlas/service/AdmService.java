@@ -20,4 +20,8 @@ public class AdmService extends BaseService<Administrador> {
         return super.save(administrador);
     }
 
+    public void deleteAll () {
+        repository.deleteAll();
+    }
+
 }

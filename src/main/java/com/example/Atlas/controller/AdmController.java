@@ -40,6 +40,12 @@ public class AdmController {
         admService.delete(id);
     }
 
+    @DeleteMapping
+    @Operation(summary = "Deletar todos administradores", description = "Exclui todos os administradores cadastrados")
+    public void deleteAllAdm () {
+         admService.deleteAll();
+    }
+
     @PutMapping("/{id}")
     @Operation(summary = "Atualizar administrador", description = "Atualiza as informações de um administrador pelo id")
     public Administrador updateAdmById (@PathVariable Long id,@RequestBody Administrador administrador) {
