@@ -11,6 +11,10 @@ public abstract class BaseService<T> {
         this.repository = repository;
     }
 
+    public T findById(Long id) {
+        return repository.findById(id).get();
+    }
+
     public List<T> findAll() {
         return repository.findAll();
     }

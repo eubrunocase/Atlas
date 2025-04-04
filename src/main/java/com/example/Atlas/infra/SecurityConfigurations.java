@@ -45,7 +45,7 @@ public class SecurityConfigurations {
                               .requestMatchers(HttpMethod.POST, "/atlas/auth/register/adm").permitAll()
 
 
-                              .requestMatchers(HttpMethod.GET, "/atlas/professor/**").permitAll()
+                              .requestMatchers(HttpMethod.GET, "/atlas/professor/**").hasRole("ADMINISTRADOR")
                               .requestMatchers(HttpMethod.POST, "/atlas/professor/**").hasRole("ADMINISTRADOR")
                               .requestMatchers(HttpMethod.DELETE, "/atlas/professor/**").hasRole("ADMINISTRADOR")
                               .requestMatchers(HttpMethod.PUT, "/atlas/professor/**").hasRole("ADMINISTRADOR")

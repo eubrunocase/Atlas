@@ -1,6 +1,8 @@
 package com.example.Atlas.controller;
 
+import com.example.Atlas.model.DTO.UpdateStatusProjectDTO;
 import com.example.Atlas.model.Project;
+import com.example.Atlas.model.enums.ProjectStatus;
 import com.example.Atlas.service.ProjectService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -46,5 +48,12 @@ public class ProjectController {
     public Project update (@PathVariable Long id, @RequestBody Project project) {
         return projectService.update(id, project);
     }
+
+    @PutMapping("/updateStatus/{id}")
+     public ResponseEntity<Void> updateStatus(@PathVariable Long id,@RequestBody UpdateStatusProjectDTO data) {
+            projectService.updateStatusProject(id, data.projectStatus());
+            return ResponseEntity.ok().build();
+     }
+
 
 }
