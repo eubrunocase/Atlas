@@ -50,6 +50,7 @@ public class ProjectController {
     }
 
     @PutMapping("/updateStatus/{id}")
+    @Operation(summary = "Atualizar Status do Projeto", description = "Atualiza o campo de status do projeto")
      public ResponseEntity<Void> updateStatus(@PathVariable Long id,@RequestBody UpdateStatusProjectDTO data) {
             projectService.updateStatusProject(id, data.projectStatus());
             return ResponseEntity.ok().build();
