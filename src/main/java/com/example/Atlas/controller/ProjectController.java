@@ -2,7 +2,6 @@ package com.example.Atlas.controller;
 
 import com.example.Atlas.model.DTO.UpdateStatusProjectDTO;
 import com.example.Atlas.model.Project;
-import com.example.Atlas.model.enums.ProjectStatus;
 import com.example.Atlas.service.ProjectService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

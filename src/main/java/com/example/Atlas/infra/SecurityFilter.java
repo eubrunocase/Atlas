@@ -15,13 +15,13 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 @Component
-public class securityFilter extends OncePerRequestFilter {
+public class SecurityFilter extends OncePerRequestFilter {
 
     private final TokenService tokenService;
     private final AdmRepository admRepository;
     private final ProfessorRepository professorRepository;
 
-    public securityFilter(TokenService tokenService, AdmRepository admRepository,
+    public SecurityFilter(TokenService tokenService, AdmRepository admRepository,
                           ProfessorRepository professorRepository) {
         this.tokenService = tokenService;
         this.admRepository = admRepository;

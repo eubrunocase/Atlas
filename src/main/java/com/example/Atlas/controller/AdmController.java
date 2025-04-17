@@ -1,5 +1,6 @@
 package com.example.Atlas.controller;
 
+import com.example.Atlas.infra.TokenService;
 import com.example.Atlas.model.Administrador;
 import com.example.Atlas.service.AdmService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,9 +16,11 @@ import java.util.List;
 public class AdmController {
 
     private final AdmService admService;
+    private final TokenService tokenService;
 
-    public AdmController(AdmService admService) {
+    public AdmController(AdmService admService, TokenService tokenService) {
         this.admService = admService;
+        this.tokenService = tokenService;
     }
 
     @PostMapping
@@ -51,6 +54,19 @@ public class AdmController {
     public Administrador updateAdmById (@PathVariable Long id,@RequestBody Administrador administrador) {
         administrador.setId(id);
         return admService.save(administrador);
+    }
+
+    @GetMapping("/profile")
+    @Operation(summary = "Recuperar informações", description = "Recupera as informações do usuário")
+    public ResponseEntity<Administrador> findByToken (@RequestHeader("Authorization") String auth) {
+          String token = auth.replace("Bearer ", "").trim();
+
+          String login = tokenService.validadeToken(token);
+
+          Administrador profile = admService.findByLogin(auth);
+
+          return ResponseEntity.ok(profile);
+
     }
 
 }

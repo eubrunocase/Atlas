@@ -26,7 +26,7 @@ public class Administrador extends Users{
 
     @Override
     public String getUsername() {
-        return "";
+        return this.getLogin();
     }
 
     @Override
