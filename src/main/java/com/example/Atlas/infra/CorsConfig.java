@@ -3,31 +3,33 @@ package com.example.Atlas.infra;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+
+import java.util.List;
 
 @Configuration
 public class CorsConfig {
 
     @Bean
-    public CorsFilter corsFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
 
-        // Permite credenciais
-        config.setAllowCredentials(true);
+        // TODO: ajuste as origens conforme o ambiente
+        config.setAllowedOrigins(List.of(
+                "http://localhost:3000"      // front local
 
-        // Origens permitidas
-        config.addAllowedOrigin("http://localhost:8081");
+        ));
 
-        // Headers permitidos
-        config.addAllowedHeader("*");
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedHeaders(List.of("*"));          // ou especifique apenas os necessários
+        config.setExposedHeaders(List.of("Authorization"));
+        config.setAllowCredentials(true);                // necessário se o front envia cookies/JWT
 
-        // Métodos HTTP permitidos
-        config.addAllowedMethod("*");
-
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
-        return new CorsFilter(source);
+        return source;
     }
 
 }

@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProfessorRepository extends BaseRepository<Professor> {
-    UserDetails findByLogin(String login);
+    Professor findByLogin(String login);
 }

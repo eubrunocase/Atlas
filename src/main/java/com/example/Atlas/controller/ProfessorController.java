@@ -1,5 +1,6 @@
 package com.example.Atlas.controller;
 
+import com.example.Atlas.infra.TokenService;
 import com.example.Atlas.model.Professor;
 import com.example.Atlas.service.ProfessorService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,9 +16,11 @@ import java.util.List;
 public class ProfessorController {
 
     private final ProfessorService professorService;
+    private final TokenService tokenService;
 
-    public ProfessorController(ProfessorService professorService) {
+    public ProfessorController(ProfessorService professorService, TokenService tokenService) {
         this.professorService = professorService;
+        this.tokenService = tokenService;
     }
 
     @PostMapping
@@ -53,5 +56,13 @@ public class ProfessorController {
         return professorService.save(professor);
     }
 
+    @GetMapping("/profile")
+    public ResponseEntity<Professor> findByToken (@RequestHeader("Authorization") String auth) {
+        String token = auth.replace("Bearer ", "").trim();
+        String login = tokenService.validadeToken(token);
+
+        Professor profile = professorService.findyByLogin(auth);
+        return ResponseEntity.ok(profile);
+    }
 
 }

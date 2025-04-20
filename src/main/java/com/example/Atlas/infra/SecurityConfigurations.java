@@ -33,8 +33,9 @@ public class SecurityConfigurations {
     }
 
           @Bean
-          public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+          public SecurityFilterChain securityFilterChain(HttpSecurity http, CorsConfigurationSource corsConfigurationSource) throws Exception {
               return http
+                      .cors(cors -> cors.configurationSource(corsConfigurationSource))
                       .csrf(csrf -> csrf.disable())
                       .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                       .authorizeHttpRequests(authorize -> authorize
@@ -54,7 +55,7 @@ public class SecurityConfigurations {
                               .requestMatchers(HttpMethod.PUT, "/atlas/professor/**").hasRole("ADMINISTRADOR")
 
                               .requestMatchers(HttpMethod.GET, "/atlas/adm/**").hasRole("ADMINISTRADOR")
-                              .requestMatchers(HttpMethod.POST, "/atlas/adm/**").hasRole("ADMINISTRADOR")
+                              .requestMatchers(HttpMethod.POST, "/atlas/adm/**").permitAll()
                               .requestMatchers(HttpMethod.DELETE, "/atlas/adm/**").hasRole("ADMINISTRADOR")
                               .requestMatchers(HttpMethod.PUT, "/atlas/adm/**").hasRole("ADMINISTRADOR")
 
@@ -67,21 +68,6 @@ public class SecurityConfigurations {
                                ) .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                               .build();
           }
-
-//    @Bean
-//    public CorsConfigurationSource corsConfigurationSource() {
-//        CorsConfig configuration = new CorsConfig();
-//
-//        configuration.addAllowedOrigin("http://localhost:8081");
-//        configuration.addAllowedHeader("*");
-//        configuration.addAllowedMethod("*");
-//        configuration.setAllowCredentials(true);
-//
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/", configuration);
-//        return source;
-//    }
-
 
     @Bean
     public AuthenticationManager authenticationManager(
