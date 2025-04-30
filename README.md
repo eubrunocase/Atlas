@@ -9,8 +9,8 @@ O Atlas √© um sistema de controle de projetos desenvolvido para gerenciar opera√
 ### 2.1 Tecnologias Utilizadas
 
 **Front-End:**
-- Angular
-- HTML, CSS e JavaScript
+- React
+- Vite.js, Tailwind css
 
 **Back-End:**
 - Java com Spring Framework
