@@ -1,0 +1,30 @@
+version: '3.8'
+# Docker configurations
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres_container
+    environment:
+      POSTGRES_DB: atlas_db
+      POSTGRES_USER: brunocase
+      POSTGRES_PASSWORD: root
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  api:
+    build: .
+    container_name: springboot_api_container
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/atlas_db
+      SPRING_DATASOURCE_USERNAME: brunocase
+      SPRING_DATASOURCE_PASSWORD: root
+    restart: on-failure
+
+volumes:
+  postgres_data:
